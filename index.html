@@ -102,16 +102,6 @@
     color:var(--ink-bright);
   }
   .hero-sub{margin-top:14px;font-size:14.5px;color:var(--dim);max-width:38ch;margin-left:auto;margin-right:auto;}
-  .hero-meta{
-    margin-top:32px;
-    display:inline-block;
-    font-size:11px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--dim);
-    border:1px solid var(--border);
-    padding:10px 18px;
-  }
 
   /* CARDS */
   .cards{display:grid;gap:14px;margin-top:32px;}
@@ -134,28 +124,39 @@
   .cards.three{grid-template-columns:1fr;}
   @media(min-width:540px){.cards.three{grid-template-columns:repeat(3,1fr);}}
 
-  /* PAIN CARDS — constat, simple & flagrant */
+  /* PAIN CARDS — constat, sobre, cohérent avec le reste des cartes */
   .pain-card{
-    position:relative;
     display:flex;flex-direction:column;
-    clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,0 100%);
   }
   .pain-card .pain-label{
     font-family:Calibri,"Segoe UI",sans-serif;
     font-size:11px;letter-spacing:.14em;text-transform:uppercase;
     font-weight:700;color:var(--dim);
-    min-height:28px;
-    display:flex;align-items:flex-end;
-    padding-bottom:12px;margin-bottom:14px;
-    border-bottom:1px solid var(--border);
+    min-height:14px;
+    margin-bottom:12px;
   }
+  .pain-card .pain-line{
+    position:relative;
+    height:1px;
+    background:var(--border);
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  .pain-card .pain-line::after{
+    content:'';
+    position:absolute;left:0;top:0;bottom:0;
+    width:0%;
+    background:var(--ink-bright);
+    transition:width 1.1s var(--ease);
+  }
+  .pain-card.on .pain-line::after{width:100%;}
   .pain-card .pain-word{
-    font-family:Cambria,Georgia,serif;
-    font-size:clamp(26px,4.6vw,32px);
+    font-size:16.5px;
     color:var(--ink-bright);
-    line-height:1;
+    font-family:Calibri,"Segoe UI",sans-serif;
+    font-weight:600;
   }
-  .pain-card p{margin-top:12px;}
+  .pain-card p{margin-top:8px;}
 
   /* stagger for grid children */
   .cards .card:nth-child(1){transition-delay:0s;}
@@ -336,8 +337,7 @@
   .hero-stat .num{
     font-family:Cambria,Georgia,serif;
     font-size:clamp(48px,13vw,84px);
-    color:#22d3ee;
-    text-shadow:0 0 28px rgba(34,211,238,.35);
+    color:var(--ink-bright);
     line-height:1;
     font-variant-numeric:tabular-nums;
   }
@@ -507,6 +507,7 @@
     .logo-pause img{animation:none!important;opacity:.85!important;}
     .timeline-track-fill{transition:none!important;}
     .price-card,.proof-card{transform:none!important;}
+    .pain-line::after{transition:none!important;}
   }
 </style>
 </head>
@@ -523,7 +524,6 @@
     <h1>NEPHELE</h1>
     <div class="hero-tag">Respecter l'équipement.<br>Sublimer la passion.</div>
     <div class="hero-sub">Station autonome de soin haute performance pour casques et bombes d'équitation.</div>
-    <div class="hero-meta">Cycle 4 minutes · Sans contact</div>
   </div>
 </section>
 
@@ -536,16 +536,19 @@
   <div class="cards three">
     <div class="card pain-card">
       <div class="pain-label">Hygiène</div>
+      <div class="pain-line"></div>
       <div class="pain-word">Contaminé</div>
       <p>Sueur, chaleur, obscurité : la charge bactérienne d'un casque explose en quelques séances sans entretien.</p>
     </div>
     <div class="card pain-card">
       <div class="pain-label">Protection matériel</div>
+      <div class="pain-line"></div>
       <div class="pain-word">Fragilisé</div>
       <p>Les cristaux de sel rongent les mousses techniques et accélèrent l'usure de l'équipement censé vous protéger.</p>
     </div>
     <div class="card pain-card">
       <div class="pain-label">Confort</div>
+      <div class="pain-line"></div>
       <div class="pain-word">Redouté</div>
       <p>Casque humide, odeur tenace : un geste qui devrait être naturel devient une gêne à chaque séance.</p>
     </div>
@@ -553,7 +556,7 @@
 </section>
 
 <section class="fade" id="rituel">
-  <div class="eyebrow">Le rituel — 4 minutes</div>
+  <div class="eyebrow">Le rituel — 4 minutes · Sans contact</div>
   <h2>Un protocole en quatre temps, pensé pour préserver — pas seulement désinfecter</h2>
   <p class="lede">De la décontamination de l'air à la fixation du parfum, chaque phase a un rôle précis :</p>
   <div class="timeline primary" id="phaseTimeline">
@@ -669,10 +672,10 @@
   <div class="faq">
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false">
-        <span>Est-ce que ça mouille mon casque ?</span>
+        <span>Est-ce que ça allonge la durée de vie ?</span>
         <span class="faq-arrow"></span>
       </button>
-      <div class="faq-a"><div class="faq-a-inner">Non — et c'est toute la différence avec un simple coup d'éponge. Notre brumisation ultrasonique produit des gouttelettes de moins de 5 microns, bien plus fines qu'un cheveu, qui pénètrent la mousse technique sans jamais la saturer d'eau libre. Le casque ressort assaini en profondeur, jamais détrempé, jamais fragilisé — prêt à reprendre le contact avec votre peau, immédiatement.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">C'est même sa raison d'être. Un casque livré à lui-même perd ses qualités bien avant la date où il devrait être changé : le sel cristallise dans la mousse, l'humidité stagnante fragilise les fibres, les odeurs s'incrustent. Répété séance après séance, le cycle NEPHELE interrompt cette dégradation avant qu'elle ne s'installe. Résultat : votre équipement conserve ses performances de protection et son confort d'origine sur toute sa durée de vie, au lieu de se dégrader en silence dans un casier fermé.</div></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false">
@@ -848,6 +851,27 @@
       revealPops.forEach(function(el){ rio.observe(el); });
     } else {
       revealPops.forEach(function(el){ el.classList.add('in'); });
+    }
+  }
+
+  // Pain-card trait — same draw-in language as the ritual timeline, staggered
+  var painCards = document.querySelectorAll('.pain-card');
+  if(painCards.length){
+    if(reduceMotion){
+      painCards.forEach(function(el){ el.classList.add('on'); });
+    } else if('IntersectionObserver' in window){
+      var pio = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            var idx = Array.prototype.indexOf.call(painCards, e.target);
+            setTimeout(function(){ e.target.classList.add('on'); }, idx * 150);
+            pio.unobserve(e.target);
+          }
+        });
+      },{threshold:0.4});
+      painCards.forEach(function(el){ pio.observe(el); });
+    } else {
+      painCards.forEach(function(el){ el.classList.add('on'); });
     }
   }
 
