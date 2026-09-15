@@ -327,6 +327,27 @@
     color:var(--dim);
     letter-spacing:.02em;
   }
+  .price-per-wash{
+    margin-top:14px;
+    display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;
+    padding:12px 14px;
+    background:rgba(255,255,255,.045);
+    border:1px solid var(--border);
+  }
+  .price-per-wash .ppw-old{
+    font-size:13px;color:var(--dim);text-decoration:line-through;
+    text-decoration-color:var(--dim);
+  }
+  .price-per-wash .ppw-arrow{color:var(--dim);font-size:13px;}
+  .price-per-wash .ppw-new{
+    font-family:Cambria,Georgia,serif;font-weight:400;
+    font-size:28px;color:var(--ink-bright);line-height:1;
+  }
+  .price-per-wash .ppw-new sup{font-size:15px;}
+  .price-per-wash .ppw-unit{
+    font-family:Calibri,"Segoe UI",sans-serif;
+    font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;
+  }
   .price-note{
     margin-top:16px;
     border:1px solid var(--border);
@@ -753,17 +774,23 @@
       <div class="desc">Un cycle, un paiement — le même tarif partout où la station est installée.</div>
     </div>
     <div class="price-card featured">
-      <div class="price-tag">Illimité</div>
+      <div class="price-tag">Meilleur prix</div>
       <div class="amount reveal-pop">9<sup>€</sup><span class="per">/mois</span></div>
-      <div class="label">Abonnement mensuel</div>
-      <div class="desc">Cycles illimités*. La formule des cavaliers réguliers.</div>
-      <div class="price-fine">Engagement 12 mois · *voir conditions</div>
+      <div class="label">10 lavages par mois</div>
+      <div class="desc">La formule des cavaliers réguliers.</div>
+      <div class="price-per-wash reveal-pop">
+        <span class="ppw-old">6€</span>
+        <span class="ppw-arrow">&rarr;</span>
+        <span class="ppw-new">0,90<sup>€</sup></span>
+        <span class="ppw-unit">/ lavage</span>
+      </div>
+      <div class="price-fine">Engagement 12 mois · voir conditions</div>
     </div>
   </div>
   <div class="price-note">
     Vous gérez une écurie, un club ou organisez un concours ? Contactez-nous pour étudier une installation.
   </div>
-  <p class="price-defense">Le prix d'un café — pour un équipement qui protège votre tête à chaque chute. Un casque neuf coûte entre 150 et 400€ : le laisser se dégrader faute d'entretien, c'est payer plein tarif un équipement qui vous protège de moins en moins. À 6€ le cycle, ou 9€/mois en illimité si vous montez régulièrement, NEPHELE en préserve les mousses et la durée de vie, et vous évite de reposer un casque humide et malodorant sur votre tête à la séance suivante. <strong>Ce n'est pas une dépense — c'est l'entretien de ce qui vous protège.</strong></p>
+  <p class="price-defense">Le prix d'un café — pour un équipement qui protège votre tête à chaque chute. Un casque neuf coûte entre 150 et 400€ : le laisser se dégrader faute d'entretien, c'est payer plein tarif un équipement qui vous protège de moins en moins. À 6€ le cycle, ou 0,90€ le lavage avec la formule 10 lavages/mois, NEPHELE en préserve les mousses et la durée de vie, et vous évite de reposer un casque humide et malodorant sur votre tête à la séance suivante. <strong>Ce n'est pas une dépense — c'est l'entretien de ce qui vous protège.</strong></p>
 </section>
 
 <section class="fade" id="mythe">
