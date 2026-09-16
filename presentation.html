@@ -602,31 +602,9 @@
     .pain-line::after{transition:none!important;}
     .price-card.featured::after{display:none!important;}
   }
-
-  /* ---- TRANSITIONS DE PAGE ---- */
-  .page-veil{
-    position:fixed;inset:0;z-index:9998;background:var(--bg);
-    pointer-events:none;opacity:1;
-    transition:opacity .6s var(--ease);
-  }
-  body.loaded .page-veil{opacity:0;}
-  body.leaving .page-veil{opacity:1;transition:opacity .32s var(--ease);}
-  .page-lift{
-    opacity:0;transform:translateY(12px);
-    transition:opacity .75s var(--ease) .06s,transform .75s var(--ease) .06s;
-  }
-  body.loaded .page-lift{opacity:1;transform:none;}
-  body.leaving .page-lift{opacity:0;transform:translateY(-8px);transition:opacity .3s var(--ease),transform .3s var(--ease);}
-  @media(prefers-reduced-motion: reduce){
-    .page-veil{display:none!important;}
-    .page-lift{opacity:1!important;transform:none!important;transition:none!important;}
-  }
-
 </style>
 </head>
 <body>
-
-<div class="page-veil"></div>
 
 <a class="backchip" href="index.html"><span class="ar"></span>Menu</a>
 
@@ -902,39 +880,6 @@
 </footer>
 
 <script>
-/* ---- NEPHELE — transitions de page ---- */
-(function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  /* ---------- transitions de page ---------- */
-  function veilIn(){
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', veilIn);
-  } else { veilIn(); }
-
-  window.addEventListener('pageshow', function(e){
-    document.body.classList.remove('leaving');
-    if(e.persisted) document.body.classList.add('loaded');
-  });
-
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href]');
-    if(!a) return;
-    if(a.target === '_blank' || a.hasAttribute('download')) return;
-    var href = a.getAttribute('href');
-    if(!href || href.charAt(0) === '#' || /^(mailto:|tel:|https?:)/i.test(href)) return;
-    if(e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-    e.preventDefault();
-    if(reduce){ window.location.href = href; return; }
-    document.body.classList.add('leaving');
-    setTimeout(function(){ window.location.href = href; }, 330);
-  });
-
-})();
-
 (function(){
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

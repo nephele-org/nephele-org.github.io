@@ -633,7 +633,6 @@
   .why-line{position:relative;height:1px;background:var(--border);margin:11px 0 12px;overflow:hidden;}
   .why-line::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--ink-bright);transition:width 1.1s var(--ease);}
   .why-item.on .why-line::after{width:100%;}
-  .why-item.cyan.on .why-line::after{background:#22d3ee;}
   .why-item .w{font-size:16.5px;color:var(--ink-bright);font-weight:600;}
   .why-item p{margin:8px 0 0;font-size:14px;color:var(--ink);}
 
@@ -677,7 +676,7 @@
     border-top:1px solid var(--border);line-height:1.55;
   }
   .pledge li::before{
-    content:'';position:absolute;left:0;top:19px;width:9px;height:1px;background:#22d3ee;
+    content:'';position:absolute;left:0;top:19px;width:9px;height:1px;background:var(--ink-bright);
   }
   .pledge .nb{font-size:12px;color:var(--dim);border-left:2px solid var(--border);padding-left:13px;margin-top:18px;line-height:1.55;}
 
@@ -729,12 +728,25 @@
 
   .done{display:none;text-align:center;padding:24px 0 6px;}
   .done.show{display:block;}
-  .done .mark{width:48px;height:48px;border:1px solid #22d3ee;border-radius:50%;margin:0 auto 22px;position:relative;}
+  .done .mark{width:48px;height:48px;border:1px solid var(--ink-bright);border-radius:50%;margin:0 auto 22px;position:relative;}
   .done .mark::after{
     content:'';position:absolute;left:17px;top:13px;width:10px;height:20px;
-    border-right:1px solid #22d3ee;border-bottom:1px solid #22d3ee;transform:rotate(42deg);
+    border-right:1px solid var(--ink-bright);border-bottom:1px solid var(--ink-bright);transform:rotate(42deg);
   }
   .done h2{margin-bottom:14px;}
+  .done-steps{display:none;margin:26px auto 0;max-width:420px;text-align:left;}
+  .dstep{
+    display:flex;gap:13px;align-items:flex-start;
+    border-top:1px solid var(--border);padding:14px 0;
+    font-size:13.5px;color:var(--ink);line-height:1.55;
+  }
+  .dstep:last-child{border-bottom:1px solid var(--border);}
+  .dstep .dn{
+    flex:0 0 auto;font-family:Cambria,Georgia,serif;font-size:12px;color:var(--dim);
+    width:16px;padding-top:2px;
+  }
+  .dstep b{color:var(--ink-bright);font-weight:600;word-break:break-all;}
+  .done-note{margin-top:22px!important;color:var(--dim);font-size:13px;}
   .done p{color:var(--ink);max-width:44ch;margin:0 auto 10px;font-size:14px;}
 </style>
 </head>
@@ -747,36 +759,35 @@
 <div class="wrap page-lift">
 
 <section class="inst-hero">
-  <div class="eyebrow">Professionnels</div>
-  <h1>Une station NEPHELE dans votre structure.</h1>
-  <div class="sub">Dites-nous où, pour combien de cavaliers et dans quel délai. Nous revenons vers vous avec une proposition d'installation adaptée.</div>
+  <div class="eyebrow">Premières installations</div>
+  <h1>Il n'y en a encore nulle part. La question, c'est qui l'aura en premier.</h1>
+  <div class="sub">NEPHELE équipe ses premières structures. Celles qui ouvrent la voie ne paient pas pour un service : elles prennent une longueur d'avance que les autres mettront des années à rattraper.</div>
 
   <div class="why">
     <div class="why-item" data-line>
-      <div class="t">Pour vos cavalières</div>
+      <div class="t">L'avance</div>
       <div class="why-line"></div>
-      <div class="w">Un service qu'elles ne trouvent nulle part</div>
-      <p>Un casque sec, assaini, sans odeur à chaque séance — sans rien avoir à faire.</p>
-    </div>
-    <div class="why-item cyan" data-line>
-      <div class="t">Pour la structure</div>
-      <div class="why-line"></div>
-      <div class="w">Autonome, sans charge de travail</div>
-      <p>Cycle de quatre minutes, sans contact, paiement intégré au terminal. Aucune manipulation par votre équipe.</p>
+      <div class="w">Personne d'autre ne l'a</div>
+      <p>Aucun centre équestre de France ne propose encore le soin du casque. Vous n'ajoutez pas un service de plus : vous en créez un que vos voisins découvriront par vos cavalières.</p>
     </div>
     <div class="why-item" data-line>
-      <div class="t">Pour l'image</div>
+      <div class="t">Le signal</div>
       <div class="why-line"></div>
-      <div class="w">L'hygiène devient visible</div>
-      <p>Un équipement que l'on montre à la visite, et qui dit quelque chose du niveau d'exigence de la maison.</p>
+      <div class="w">Un niveau d'exigence qui se voit</div>
+      <p>Une station à l'entrée du club dit quelque chose avant même qu'on l'utilise : ici, on ne néglige rien. C'est l'argument que vous n'aviez pas au moment de faire visiter.</p>
     </div>
-  </div>
-</section>
+    <div class="why-item" data-line>
+      <div class="t">La charge</div>
+      <div class="why-line"></div>
+      <div class="w">Zéro</div>
+      <p>Autonome, sans contact, paiement intégré au terminal. Pas une manipulation de votre équipe, pas une ligne de plus dans votre gestion.</p>
+    </div>
+  </section>
 
 <section class="fade">
-  <div class="eyebrow">Votre demande</div>
-  <h2>Deux minutes suffisent.</h2>
-  <p class="lede">Les modalités précises se définissent ensemble, selon votre structure et sa fréquentation. Ces quelques informations nous permettent de préparer une proposition concrète avant même de nous parler.</p>
+  <div class="eyebrow">Votre dossier</div>
+  <h2>Deux minutes, et votre structure entre dans la liste.</h2>
+  <p class="lede">Les modalités se définissent ensemble, selon votre site et sa fréquentation. Ces quelques éléments nous permettent d'arriver avec une proposition chiffrée plutôt qu'avec des questions. Les premières installations sont attribuées dans l'ordre des demandes sérieuses.</p>
 
   <form id="installForm" novalidate>
 
@@ -873,7 +884,7 @@
       <div class="fs-head"><span class="fs-num">03</span><span class="fs-title">Déclaration d'intention</span></div>
 
       <div class="pledge">
-        <p class="lead">En signant, je déclare mon intérêt sérieux pour l'installation d'une ou plusieurs stations NEPHELE au sein de la structure indiquée ci-dessus, et je confirme les éléments suivants :</p>
+        <p class="lead">En signant, je positionne ma structure parmi les premières installations NEPHELE, et je confirme les éléments suivants :</p>
         <ul>
           <li>La structure dispose — ou peut disposer — d'un emplacement abrité pouvant accueillir la station.</li>
           <li>Une alimentation électrique 220V est présente à proximité, ou peut être amenée.</li>
@@ -914,7 +925,8 @@
     <div class="mark"></div>
     <h2>Demande enregistrée.</h2>
     <p id="doneText">Votre récapitulatif signé a été préparé.</p>
-    <div style="margin-top:26px;">
+    <div id="doneSteps" class="done-steps"></div>
+    <div style="margin-top:28px;">
       <a class="btn" href="index.html">Retour au menu</a>
     </div>
   </div>
@@ -928,11 +940,13 @@
   <div class="footer-links">
     <a href="index.html">Menu</a>
     <span>·</span>
-    <a href="presentation.html">Présentation</a>
-    <span>·</span>
     <a href="abonnement.html">Abonnement</a>
     <span>·</span>
+    <a href="installer.html">Installer une station</a>
+    <span>·</span>
     <a href="mentions-legales.html">Mentions légales</a>
+    <span>·</span>
+    <a href="securite-ozone.html">Sécurité &amp; Ozone</a>
   </div>
 </footer>
 
@@ -1181,7 +1195,7 @@
         return;
       }
 
-      btn.disabled = true; btn.textContent = 'Envoi…';
+      btn.disabled = true; btn.textContent = 'Préparation…';
 
       var data = {};
       Object.keys(LABELS).forEach(function(k){
@@ -1189,11 +1203,39 @@
         if(el) data[k] = el.value.trim();
       });
       var sigData = canvas.toDataURL('image/png');
+      var pdfName = 'NEPHELE-intention-' + (data.structure || 'demande').replace(/[^a-z0-9]/gi,'-').toLowerCase() + '.pdf';
 
-      function recap(){
-        var l = ["DEMANDE D'INSTALLATION NEPHELE", 'Reçue le ' + dateStr, ''];
-        Object.keys(LABELS).forEach(function(k){ if(data[k]) l.push(LABELS[k] + ' : ' + data[k]); });
-        l.push('', "Déclaration d'intention approuvée et signée par " + data.nom + ' le ' + dateStr + '.');
+      function corpsMail(pdfOk){
+        var l = [];
+        l.push('Bonjour Geoffrey,');
+        l.push('');
+        l.push("Je viens de remplir la déclaration d'intention sur votre site pour l'installation d'une station NEPHELE dans notre structure.");
+        l.push('');
+        if(pdfOk){
+          l.push("Le récapitulatif signé vient d'être téléchargé sur mon appareil sous le nom « " + pdfName + " ».");
+          l.push("Je le joins à ce message — si la pièce jointe n'apparaît pas, vous trouverez tout le détail ci-dessous.");
+        } else {
+          l.push("J'ai signé la déclaration en ligne. Voici le détail de ma demande :");
+        }
+        l.push('');
+        l.push('─────────────────────────────');
+        l.push('  MA DEMANDE');
+        l.push('─────────────────────────────');
+        Object.keys(LABELS).forEach(function(k){
+          if(data[k]) l.push('  ' + LABELS[k] + ' : ' + data[k]);
+        });
+        l.push('');
+        l.push('─────────────────────────────');
+        l.push("  DÉCLARATION D'INTENTION");
+        l.push('─────────────────────────────');
+        l.push('  ' + PLEDGE);
+        l.push('');
+        l.push('  Approuvée et signée par ' + data.nom + ', le ' + dateStr + '.');
+        l.push('');
+        l.push("Je reste joignable au " + data.tel + " ou à cette adresse.");
+        l.push('');
+        l.push('Bien à vous,');
+        l.push(data.nom);
         return l.join('\n');
       }
 
@@ -1241,7 +1283,7 @@
           }
           mc.putImageData(out,0,0);
           doc.addImage(merged.toDataURL('image/png'), 'PNG', 20, y, 70, 70 * (canvas.height/canvas.width));
-          doc.save('NEPHELE-intention-' + (data.structure||'demande').replace(/[^a-z0-9]/gi,'-').toLowerCase() + '.pdf');
+          doc.save(pdfName);
           return true;
         } catch(err){ return false; }
       }
@@ -1249,6 +1291,23 @@
       function finish(text){
         form.style.display = 'none';
         document.getElementById('doneText').textContent = text;
+        document.getElementById('doneSteps').style.display = 'none';
+        var d = document.getElementById('doneBlock');
+        d.classList.add('show');
+        d.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+      function showDone(pdfOk, name){
+        form.style.display = 'none';
+        document.getElementById('doneText').textContent =
+          'Votre messagerie va s\'ouvrir avec le message déjà rédigé. Il ne reste qu\'à l\'envoyer.';
+        var st = document.getElementById('doneSteps');
+        st.innerHTML =
+          '<div class="dstep"><span class="dn">1</span><span>Votre messagerie s\'ouvre, destinataire et message déjà remplis.</span></div>' +
+          (pdfOk
+            ? '<div class="dstep"><span class="dn">2</span><span>Glissez-y le fichier <b>' + name + '</b>, qui vient d\'être téléchargé sur votre appareil.</span></div>'
+            : '') +
+          '<div class="dstep"><span class="dn">' + (pdfOk ? '3' : '2') + '</span><span>Envoyez. Nous revenons vers vous sous 48 heures.</span></div>';
+        st.style.display = 'block';
         var d = document.getElementById('doneBlock');
         d.classList.add('show');
         d.scrollIntoView({behavior:'smooth', block:'center'});
@@ -1256,16 +1315,14 @@
 
       function fallback(){
         var pdfOk = makePdf();
-        var body = recap() + '\n\n' + (pdfOk
-          ? '(Le récapitulatif signé au format PDF vient d\'être téléchargé sur votre appareil — merci de le joindre à cet email.)'
-          : '(Signature réalisée en ligne.)');
+        var body = corpsMail(pdfOk);
         var href = 'mailto:' + CONTACT_EMAIL
           + '?subject=' + encodeURIComponent("Installation NEPHELE — " + (data.structure || data.nom))
           + '&body=' + encodeURIComponent(body);
-        finish(pdfOk
-          ? 'Votre récapitulatif signé vient d\'être téléchargé. Votre messagerie s\'ouvre : joignez-y le PDF et envoyez. Nous revenons vers vous sous 48 heures.'
-          : 'Votre messagerie s\'ouvre avec le récapitulatif complet. Envoyez-le, nous revenons vers vous sous 48 heures.');
-        setTimeout(function(){ window.location.href = href; }, 800);
+        // filet de sécurité : le message complet reste dans le presse-papier
+        try{ if(navigator.clipboard) navigator.clipboard.writeText(body); }catch(e){}
+        showDone(pdfOk, pdfName);
+        setTimeout(function(){ window.location.href = href; }, 900);
       }
 
       if(FORMSPREE_ID){
@@ -1276,7 +1333,7 @@
         payload.append('_subject', 'Installation NEPHELE — ' + (data.structure || data.nom));
         fetch('https://formspree.io/f/' + FORMSPREE_ID, { method:'POST', body:payload, headers:{'Accept':'application/json'} })
           .then(function(r){
-            if(r.ok){ finish('Nous avons bien reçu votre demande et revenons vers vous sous 48 heures.'); }
+            if(r.ok){ finish('Nous avons bien reçu votre demande, signature comprise. Nous revenons vers vous sous 48 heures.'); }
             else { fallback(); }
           })
           .catch(function(){ fallback(); });
