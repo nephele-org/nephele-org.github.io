@@ -650,11 +650,99 @@
   .step .st{font-size:15.5px;color:var(--ink-bright);}
   .step p{margin:6px 0 0;font-size:14px;color:var(--dim);}
 
+  /* BOUTON MENU — identique sur toutes les pages */
+  .backchip{
+    position:fixed;z-index:200;
+    top:calc(14px + env(safe-area-inset-top,0px));left:14px;
+    display:inline-flex;align-items:center;gap:7px;
+    padding:9px 14px 9px 12px;
+    font-size:12px;letter-spacing:.04em;
+    color:var(--ink);text-decoration:none;
+    background:rgba(0,0,0,.62);
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);
+  }
+  .backchip:hover{background:rgba(0,0,0,.85);border-color:var(--ink-bright);color:var(--ink-bright);}
+  .backchip .ar{width:13px;height:1px;background:currentColor;position:relative;flex:0 0 auto;}
+  .backchip .ar::after{
+    content:'';position:absolute;left:0;top:50%;width:5px;height:5px;
+    border-left:1px solid currentColor;border-bottom:1px solid currentColor;
+    transform:translateY(-50%) rotate(45deg);
+  }
+
+  /* ============================================================
+     ORDINATEUR — le site garde exactement les proportions
+     du téléphone : une colonne de largeur mobile, centrée,
+     et aucune taille qui grandit avec l'écran.
+     ============================================================ */
+  @media (min-width: 620px){
+
+    /* toute la page tient dans une largeur de téléphone */
+    body{
+      max-width: 430px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      zoom: 1.2;
+    }
+
+    /* les conteneurs internes ne bornent plus rien de plus */
+    .wrap,
+    .hero-content,
+    .menu,
+    .inner,
+    .topbar-in{
+      max-width: none !important;
+    }
+
+    /* aucune grille ne se déplie */
+    .cards.three,
+    .price-grid,
+    .proof-grid,
+    .versus,
+    .grid2{
+      grid-template-columns: 1fr !important;
+    }
+
+    /* la barre collante suit la colonne */
+    .sticky-cta{
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: 430px !important;
+      max-width: 430px !important;
+    }
+    .sticky-cta.in{ transform: translateX(-50%) !important; }
+    .sticky-in{ max-width: none !important; }
+
+    /* le fond d'ambiance de l'accueil reste plein écran */
+    .bg-layer{ width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
+  }
+
+  /* la pastille retour reste au coin de l'écran */
+  @media (min-width: 620px){
+    .backchip{ left: 14px !important; }
+  }
+
+
+  /* proportions figees a celles d'un telephone */
+  @media (min-width: 620px){
+    h2{font-size:24.0px !important;}
+    .hero h1{font-size:31.2px !important;}
+    .hero-tag{font-size:17.0px !important;}
+    #tarifs h2{font-size:18.0px !important;}
+    .hero-stat .num{font-size:50.7px !important;}
+    .vision h2{font-size:22.0px !important;}
+    h1{font-size:25.0px !important;}
+  }
+
 </style>
 </head>
 <body>
 
 <div class="page-veil"></div>
+
+<a class="backchip" href="index.html"><span class="ar"></span>Menu</a>
 
 <div class="shell">
   <div class="inner page-lift">

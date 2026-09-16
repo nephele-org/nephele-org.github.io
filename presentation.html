@@ -602,6 +602,71 @@
     .pain-line::after{transition:none!important;}
     .price-card.featured::after{display:none!important;}
   }
+
+  /* ============================================================
+     ORDINATEUR — le site garde exactement les proportions
+     du téléphone : une colonne de largeur mobile, centrée,
+     et aucune taille qui grandit avec l'écran.
+     ============================================================ */
+  @media (min-width: 620px){
+
+    /* toute la page tient dans une largeur de téléphone */
+    body{
+      max-width: 430px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      zoom: 1.2;
+    }
+
+    /* les conteneurs internes ne bornent plus rien de plus */
+    .wrap,
+    .hero-content,
+    .menu,
+    .inner,
+    .topbar-in{
+      max-width: none !important;
+    }
+
+    /* aucune grille ne se déplie */
+    .cards.three,
+    .price-grid,
+    .proof-grid,
+    .versus,
+    .grid2{
+      grid-template-columns: 1fr !important;
+    }
+
+    /* la barre collante suit la colonne */
+    .sticky-cta{
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: 430px !important;
+      max-width: 430px !important;
+    }
+    .sticky-cta.in{ transform: translateX(-50%) !important; }
+    .sticky-in{ max-width: none !important; }
+
+    /* le fond d'ambiance de l'accueil reste plein écran */
+    .bg-layer{ width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
+  }
+
+  /* la pastille retour reste au coin de l'écran */
+  @media (min-width: 620px){
+    .backchip{ left: 14px !important; }
+  }
+
+
+  /* proportions figees a celles d'un telephone */
+  @media (min-width: 620px){
+    h2{font-size:24.0px !important;}
+    .hero h1{font-size:31.2px !important;}
+    .hero-tag{font-size:17.0px !important;}
+    #tarifs h2{font-size:18.0px !important;}
+    .hero-stat .num{font-size:50.7px !important;}
+    .vision h2{font-size:22.0px !important;}
+  }
+
 </style>
 </head>
 <body>

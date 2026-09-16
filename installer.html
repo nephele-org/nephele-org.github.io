@@ -651,6 +651,10 @@
   .field:last-child{margin-bottom:0;}
   label{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);font-weight:700;}
   label .req{color:var(--ink-bright);margin-left:2px;}
+  label .opt{
+    color:#5f5f5f;font-weight:400;letter-spacing:.06em;
+    text-transform:none;font-size:10.5px;margin-left:4px;
+  }
   input[type=text],input[type=email],input[type=tel],select,textarea{
     width:100%;background:var(--panel);border:1px solid var(--border);color:var(--ink-bright);
     font-family:inherit;font-size:16px;padding:14px 14px;border-radius:0;
@@ -665,7 +669,10 @@
   select option{background:#141414;color:#fff;}
   textarea{min-height:100px;resize:vertical;line-height:1.55;}
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink-bright);background:var(--panel2);}
-  input.err,select.err,textarea.err{border-color:#e0a95a;}
+  input.err,select.err,textarea.err{
+    border-color:#22d3ee;
+    box-shadow:0 0 0 1px rgba(34,211,238,.35);
+  }
 
   /* déclaration */
   .pledge{margin-top:4px;border:1px solid var(--border);background:var(--panel);padding:22px 20px;}
@@ -685,7 +692,7 @@
     border:1px solid var(--border);background:var(--panel);padding:16px;cursor:pointer;
     transition:border-color .25s var(--ease);
   }
-  .check.err{border-color:#e0a95a;}
+  .check.err{border-color:#22d3ee;box-shadow:0 0 0 1px rgba(34,211,238,.35);}
   .check input{
     appearance:none;-webkit-appearance:none;flex:0 0 auto;width:18px;height:18px;margin-top:2px;
     border:1px solid var(--dim);background:none;cursor:pointer;position:relative;
@@ -703,7 +710,7 @@
   .check span .req{color:var(--ink-bright);}
 
   .sigwrap{position:relative;border:1px solid var(--border);background:#0d0d0d;height:165px;touch-action:none;overflow:hidden;}
-  .sigwrap.err{border-color:#e0a95a;}
+  .sigwrap.err{border-color:#22d3ee;box-shadow:0 0 0 1px rgba(34,211,238,.35);}
   .sigwrap canvas{display:block;width:100%;height:100%;cursor:crosshair;}
   .sigwrap .ph{
     position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -723,7 +730,7 @@
   .submit-zone{margin-top:34px;}
   .form-msg{margin-top:15px;font-size:13px;display:none;}
   .form-msg.show{display:block;}
-  .form-msg.bad{color:#e0a95a;}
+  .form-msg.bad{color:#22d3ee;}
   .hint{font-size:11.5px;color:var(--dim);margin-top:16px;}
 
   .done{display:none;text-align:center;padding:24px 0 6px;}
@@ -747,7 +754,80 @@
   }
   .dstep b{color:var(--ink-bright);font-weight:600;word-break:break-all;}
   .done-note{margin-top:22px!important;color:var(--dim);font-size:13px;}
+  .done-send{display:none;margin:26px auto 0;max-width:420px;}
+  .done-send .btn{margin-bottom:10px;}
+  .done-send .btn:last-of-type{margin-bottom:0;}
+  .done-addr{
+    margin-top:18px;font-size:12.5px;color:var(--dim);line-height:1.6;
+  }
+  .done-addr b{color:var(--ink-bright);font-weight:600;}
   .done p{color:var(--ink);max-width:44ch;margin:0 auto 10px;font-size:14px;}
+
+  /* ============================================================
+     ORDINATEUR — le site garde exactement les proportions
+     du téléphone : une colonne de largeur mobile, centrée,
+     et aucune taille qui grandit avec l'écran.
+     ============================================================ */
+  @media (min-width: 620px){
+
+    /* toute la page tient dans une largeur de téléphone */
+    body{
+      max-width: 430px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      zoom: 1.2;
+    }
+
+    /* les conteneurs internes ne bornent plus rien de plus */
+    .wrap,
+    .hero-content,
+    .menu,
+    .inner,
+    .topbar-in{
+      max-width: none !important;
+    }
+
+    /* aucune grille ne se déplie */
+    .cards.three,
+    .price-grid,
+    .proof-grid,
+    .versus,
+    .grid2{
+      grid-template-columns: 1fr !important;
+    }
+
+    /* la barre collante suit la colonne */
+    .sticky-cta{
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: 430px !important;
+      max-width: 430px !important;
+    }
+    .sticky-cta.in{ transform: translateX(-50%) !important; }
+    .sticky-in{ max-width: none !important; }
+
+    /* le fond d'ambiance de l'accueil reste plein écran */
+    .bg-layer{ width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
+  }
+
+  /* la pastille retour reste au coin de l'écran */
+  @media (min-width: 620px){
+    .backchip{ left: 14px !important; }
+  }
+
+
+  /* proportions figees a celles d'un telephone */
+  @media (min-width: 620px){
+    h2{font-size:24.0px !important;}
+    .hero h1{font-size:31.2px !important;}
+    .hero-tag{font-size:17.0px !important;}
+    #tarifs h2{font-size:18.0px !important;}
+    .hero-stat .num{font-size:50.7px !important;}
+    .vision h2{font-size:22.0px !important;}
+    .inst-hero h1{font-size:25.0px !important;}
+  }
+
 </style>
 </head>
 <body>
@@ -855,7 +935,7 @@
         </select>
       </div>
       <div class="field">
-        <label for="concours">Concours et événements</label>
+        <label for="concours">Concours et événements <span class="opt">facultatif</span></label>
         <select id="concours" name="concours">
           <option value="">Sélectionner…</option>
           <option>Oui, régulièrement</option>
@@ -875,8 +955,8 @@
         </select>
       </div>
       <div class="field">
-        <label for="message">Précisions</label>
-        <textarea id="message" name="message" placeholder="Facultatif — contraintes, questions, contexte."></textarea>
+        <label for="message">Précisions <span class="opt">facultatif</span></label>
+        <textarea id="message" name="message" placeholder="Contraintes, questions, contexte…"></textarea>
       </div>
     </div>
 
@@ -926,6 +1006,7 @@
     <h2>Demande enregistrée.</h2>
     <p id="doneText">Votre récapitulatif signé a été préparé.</p>
     <div id="doneSteps" class="done-steps"></div>
+    <div id="doneSend" class="done-send"></div>
     <div style="margin-top:28px;">
       <a class="btn" href="index.html">Retour au menu</a>
     </div>
@@ -1296,33 +1377,62 @@
         d.classList.add('show');
         d.scrollIntoView({behavior:'smooth', block:'center'});
       }
-      function showDone(pdfOk, name){
+      function showDone(pdfOk, name, mailto, gmail, body){
         form.style.display = 'none';
         document.getElementById('doneText').textContent =
-          'Votre messagerie va s\'ouvrir avec le message déjà rédigé. Il ne reste qu\'à l\'envoyer.';
+          'Votre dossier signé est prêt. Dernière étape : nous l\'envoyer.';
+
         var st = document.getElementById('doneSteps');
         st.innerHTML =
-          '<div class="dstep"><span class="dn">1</span><span>Votre messagerie s\'ouvre, destinataire et message déjà remplis.</span></div>' +
           (pdfOk
-            ? '<div class="dstep"><span class="dn">2</span><span>Glissez-y le fichier <b>' + name + '</b>, qui vient d\'être téléchargé sur votre appareil.</span></div>'
+            ? '<div class="dstep"><span class="dn">1</span><span>Le fichier <b>' + name + '</b> vient d\'être téléchargé sur votre appareil.</span></div>'
             : '') +
-          '<div class="dstep"><span class="dn">' + (pdfOk ? '3' : '2') + '</span><span>Envoyez. Nous revenons vers vous sous 48 heures.</span></div>';
+          '<div class="dstep"><span class="dn">' + (pdfOk ? '2' : '1') + '</span><span>Ouvrez votre messagerie ci-dessous : destinataire, objet et message sont déjà écrits.</span></div>' +
+          (pdfOk
+            ? '<div class="dstep"><span class="dn">3</span><span>Glissez-y le fichier téléchargé, puis envoyez.</span></div>'
+            : '<div class="dstep"><span class="dn">2</span><span>Envoyez.</span></div>');
         st.style.display = 'block';
+
+        var box = document.getElementById('doneSend');
+        box.innerHTML =
+          '<a class="btn solid full" id="btnGmail" href="' + gmail + '" target="_blank" rel="noopener">Ouvrir dans Gmail</a>' +
+          '<a class="btn full" id="btnMail" href="' + mailto + '">Ouvrir mon application mail</a>' +
+          '<button class="btn full" type="button" id="btnCopy">Copier le message</button>' +
+          '<div class="done-addr">Ou écrivez-nous directement à <b>' + CONTACT_EMAIL + '</b></div>';
+        box.style.display = 'block';
+
+        document.getElementById('btnCopy').addEventListener('click', function(){
+          var btn = this;
+          function ok(){ btn.textContent = 'Message copié ✓'; setTimeout(function(){ btn.textContent = 'Copier le message'; }, 2600); }
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(body).then(ok).catch(function(){ legacy(); });
+          } else { legacy(); }
+          function legacy(){
+            var ta = document.createElement('textarea');
+            ta.value = body; ta.style.position='fixed'; ta.style.opacity='0';
+            document.body.appendChild(ta); ta.select();
+            try{ document.execCommand('copy'); ok(); }catch(e){ btn.textContent = 'Copie impossible'; }
+            document.body.removeChild(ta);
+          }
+        });
+
         var d = document.getElementById('doneBlock');
         d.classList.add('show');
         d.scrollIntoView({behavior:'smooth', block:'center'});
       }
 
       function fallback(){
-        var pdfOk = makePdf();
-        var body = corpsMail(pdfOk);
-        var href = 'mailto:' + CONTACT_EMAIL
-          + '?subject=' + encodeURIComponent("Installation NEPHELE — " + (data.structure || data.nom))
-          + '&body=' + encodeURIComponent(body);
-        // filet de sécurité : le message complet reste dans le presse-papier
-        try{ if(navigator.clipboard) navigator.clipboard.writeText(body); }catch(e){}
-        showDone(pdfOk, pdfName);
-        setTimeout(function(){ window.location.href = href; }, 900);
+        var pdfOk  = makePdf();
+        var body   = corpsMail(pdfOk);
+        var sujet  = "Installation NEPHELE — " + (data.structure || data.nom);
+        var mailto = 'mailto:' + CONTACT_EMAIL
+                   + '?subject=' + encodeURIComponent(sujet)
+                   + '&body='    + encodeURIComponent(body);
+        var gmail  = 'https://mail.google.com/mail/?view=cm&fs=1'
+                   + '&to='   + encodeURIComponent(CONTACT_EMAIL)
+                   + '&su='   + encodeURIComponent(sujet)
+                   + '&body=' + encodeURIComponent(body);
+        showDone(pdfOk, pdfName, mailto, gmail, body);
       }
 
       if(FORMSPREE_ID){
