@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Pages de service, sans intérêt pour la recherche
+Disallow: /merci.html
+Disallow: /legal.html
+Disallow: /installer.html
+
+Sitemap: https://nephele-org.github.io/sitemap.xml
