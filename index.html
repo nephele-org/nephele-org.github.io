@@ -918,14 +918,35 @@
   body.loaded .m-vis{opacity:1;}
   .m-vis img{width:100%;height:100%;object-fit:cover;filter:grayscale(40%) brightness(.5) contrast(1.05);transform:scale(1.04);transition:transform 1.2s var(--ease),filter 1.2s var(--ease);}
   .m-item:hover .m-vis img,.m-item:focus-visible .m-vis img{transform:scale(1.1);filter:grayscale(20%) brightness(.65) contrast(1.05);}
-  .m-vis-card{-webkit-mask-image:none;mask-image:none;width:44%;}
-  .m-vis-card .ncard{position:absolute;width:132px;right:-16px;top:50%;margin-top:-6px;transform:rotate(-12deg)!important;opacity:.75!important;}
+  .m-vis-card{background:radial-gradient(70% 80% at 70% 50%,#1d1d1d,#070707);}
+  .m-vis-card .ncard{position:absolute;width:118px;left:58%;top:50%;transform:translate(-50%,-50%) rotate(-7deg)!important;opacity:1!important;filter:brightness(.62);}
   .m-vis-card .nc-type{font-size:5.5px;}
-  .m-vis-card .nc-name{font-size:10px;}
+  .m-vis-card .nc-name{font-size:10px;letter-spacing:.3em;}
   .m-vis-card .nc-quota .dots{gap:2px;}
   .m-vis-card .nc-quota .dots i{width:4px;height:4px;}
   .m-vis-card .nc-quota span,.m-vis-card .nc-holder{display:none;}
-  .m-item:hover .m-vis-card .ncard{transform:rotate(-8deg) translateX(-6px)!important;transition:transform .8s var(--ease)!important;}
+  .m-vis-card .ncard .sheen{display:none;}
+  .m-item:hover .m-vis-card .ncard{transform:translate(-50%,-52%) rotate(-3deg) scale(1.05)!important;filter:brightness(.75);transition:transform .9s var(--ease),filter .9s var(--ease)!important;}
+  /* trait + flèche : un seul tracé continu, révélé d'un geste */
+  .m-rule{position:relative;height:9px;}
+  .m-rule .m-line,.m-rule .m-arrow{display:none;}
+  .m-rule::before,.m-rule::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(currentColor,currentColor) left center/calc(100% - 1px) 1px no-repeat;}
+  .m-rule::before{color:var(--border);
+    background:linear-gradient(#2A2A2A,#2A2A2A) left center/calc(100% - 1px) 1px no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='9'%3E%3Cpath d='M1 .5l5 4-5 4' fill='none' stroke='%232A2A2A'/%3E%3C/svg%3E") right center/7px 9px no-repeat;}
+  .m-rule::after{
+    background:linear-gradient(#fff,#fff) left center/calc(100% - 1px) 1px no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='9'%3E%3Cpath d='M1 .5l5 4-5 4' fill='none' stroke='%23fff'/%3E%3C/svg%3E") right center/7px 9px no-repeat;
+    clip-path:inset(0 100% 0 0);-webkit-clip-path:inset(0 100% 0 0);
+    transition:clip-path 1.25s var(--ease),-webkit-clip-path 1.25s var(--ease);}
+  body.loaded .m-item .m-rule::after{clip-path:inset(0 0 0 0);-webkit-clip-path:inset(0 0 0 0);}
+  body.loaded .m-item:nth-of-type(1) .m-rule::after{transition-delay:.6s;}
+  body.loaded .m-item:nth-of-type(2) .m-rule::after{transition-delay:.74s;}
+  body.loaded .m-item:nth-of-type(3) .m-rule::after{transition-delay:.88s;}
+  .m-item:hover .m-rule::after,.m-item:focus-visible .m-rule::after{animation:ruleSweep .9s var(--ease) 1;}
+  @keyframes ruleSweep{from{clip-path:inset(0 100% 0 0);-webkit-clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0);-webkit-clip-path:inset(0 0 0 0)}}
+  @media(prefers-reduced-motion: reduce){.m-rule::after{clip-path:none!important;-webkit-clip-path:none!important;transition:none!important;animation:none!important;}}
   .hub-already{display:block;margin:24px auto 0;text-align:center;font-size:13px;letter-spacing:.03em;color:var(--dim);text-decoration:none;opacity:0;transition:opacity 1s var(--ease) 1.2s;}
   body.loaded .hub-already{opacity:1;}
   .hub-already b{color:var(--ink-bright);font-weight:400;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px;transition:border-color .3s var(--ease);}
