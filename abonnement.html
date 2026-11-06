@@ -1082,6 +1082,22 @@
     .sph,.term,.finger,.ps *,.ps-dots button::after{transition:none!important;animation:none!important;}
   }
 
+
+  /* — formule : interrupteur engagement / sans engagement — */
+  .formule{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;margin:18px 0 0;padding:16px 0 0;border:none;border-top:1px solid var(--border);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .formule:focus-visible{outline:1px solid var(--ink-bright);outline-offset:4px;}
+  .f-txt b{display:block;font-size:13.5px;font-weight:600;letter-spacing:.02em;color:var(--dim);transition:color .35s var(--ease);}
+  .f-txt span{display:block;margin-top:4px;font-size:12px;line-height:1.5;color:var(--dim);}
+  .formule[aria-checked="true"] .f-txt b{color:var(--ink-bright);}
+  .sw{flex:0 0 auto;position:relative;width:50px;height:28px;border-radius:14px;border:1px solid #3a3a3a;background:#0b0b0b;transition:border-color .35s var(--ease),background .35s var(--ease);}
+  .sw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#6d6d6d;box-shadow:0 1px 3px rgba(0,0,0,.6);transition:transform .4s var(--ease),background .35s var(--ease);}
+  .formule:hover .sw{border-color:#5a5a5a;}
+  .formule[aria-checked="true"] .sw{border-color:var(--ink-bright);background:#1c1c1c;}
+  .formule[aria-checked="true"] .sw i{transform:translateX(22px);background:var(--ink-bright);}
+  .f-flip{animation:fFlip .5s var(--ease);}
+  @keyframes fFlip{from{opacity:0}to{opacity:1}}
+  .cta-note .f-link{color:var(--dim);text-decoration:underline;text-underline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){.sw,.sw i,.f-txt b{transition:none!important;}.f-flip{animation:none!important;}}
 </style>
 </head>
 <body>
@@ -1094,7 +1110,7 @@
 <section class="open">
   <div class="eyebrow">L'abonnement</div>
   <h1>Votre casque n'a jamais été lavé. Pas une seule fois depuis que vous l'avez.</h1>
-  <div class="sub">Dix cycles par mois. Quatre minutes chacun. Quatre-vingt-dix centimes l'unité.</div>
+  <div class="sub">Dix cycles par mois. Quatre minutes chacun. <span data-f="Un euro vingt l'unité.">Quatre-vingt-dix centimes l'unité.</span></div>
 
   <div class="ncard-wrap">
     <div class="ncard" data-card="10" role="img" aria-label="Carte NEPHELE virtuelle, dix lavages par mois">
@@ -1112,19 +1128,23 @@
   <div class="ncard-cap">Votre carte NEPHELE vit dans votre téléphone. <a href="#comment" style="color:var(--ink-bright);">Comment ça se passe</a></div>
 
   <div class="price-hero" data-shine>
-    <div class="amount reveal-pop">9<sup>€</sup><span class="per">/mois</span></div>
-    <div class="qty">10 cycles inclus chaque mois</div>
+    <div class="amount reveal-pop"><span data-f="12">9</span><sup>€</sup><span class="per">/mois</span></div>
+    <div class="qty">10 cycles inclus chaque mois · <span data-f="sans engagement">engagement 12 mois</span></div>
     <div class="ppw reveal-pop">
       <span class="old">6 €</span>
       <span class="arrow">&rarr;</span>
-      <span class="new">0,90<sup>€</sup></span>
+      <span class="new"><span data-f="1,20">0,90</span><sup>€</sup></span>
       <span class="unit">le lavage</span>
     </div>
+    <button class="formule" id="formule" type="button" role="switch" aria-checked="false">
+      <span class="f-txt"><b>Sans engagement</b><span aria-live="polite" data-f="Vous arrêtez quand vous voulez, par simple e‑mail. Effet à la fin du mois en cours.">12 € par mois au lieu de 9, et vous arrêtez quand vous voulez.</span></span>
+      <span class="sw" aria-hidden="true"><i></i></span>
+    </button>
   </div>
 
   <div style="margin-top:22px;">
-    <a class="btn solid full" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Souscrire</a>
-    <div class="cta-note">Paiement sécurisé Stripe · Engagement 12 mois · Une minute</div>
+    <a class="btn solid full js-buy" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Souscrire</a>
+    <div class="cta-note">Paiement sécurisé Stripe · <span data-f="Sans engagement">Engagement 12 mois</span> · Une minute</div>
   </div>
 </section>
 
@@ -1253,14 +1273,14 @@
 
 <section class="fade">
   <div class="eyebrow">Le calcul</div>
-  <h2>Dix lavages à l'unité coûtent soixante euros. Ici, ils en coûtent neuf.</h2>
+  <h2>Dix lavages à l'unité coûtent soixante euros. Ici, ils en coûtent <span data-f="douze">neuf</span>.</h2>
 
   <div class="compare">
     <div class="cmp-row"><span class="k">10 cycles au tarif à l'usage</span><span class="v">60,00 €</span></div>
-    <div class="cmp-row hi"><span class="k">10 cycles avec l'abonnement</span><span class="v">9,00 €</span></div>
-    <div class="cmp-row"><span class="k">Coût réel du cycle</span><span class="v">0,90 €</span></div>
+    <div class="cmp-row hi"><span class="k">10 cycles avec l'abonnement</span><span class="v" data-f="12,00 €">9,00 €</span></div>
+    <div class="cmp-row"><span class="k">Coût réel du cycle</span><span class="v" data-f="1,20 €">0,90 €</span></div>
   </div>
-  <div class="cmp-save">Soit <strong>51 €</strong> d'écart chaque mois, à usage plein.</div>
+  <div class="cmp-save">Soit <strong data-f="48 €">51 €</strong> d'écart chaque mois, à usage plein.</div>
 
   <div class="incl">
     <div class="incl-item" data-line>
@@ -1286,11 +1306,11 @@
     </div>
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false"><span>Quel est l'engagement ?</span><span class="faq-arrow"></span></button>
-      <div class="faq-a"><div class="faq-a-inner">Douze mois, à 9 € par mois. C'est cette durée qui permet de tenir le cycle à 0,90 € au lieu de 6 € à l'unité. Ensuite, il continue sans engagement.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Vous choisissez. Douze mois à 9 € par mois : c'est cette durée qui permet de tenir le cycle à 0,90 € au lieu de 6 € à l'unité, puis il continue sans engagement. Ou sans engagement dès le départ, à 12 € par mois : vous arrêtez quand vous voulez.</div></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false"><span>Comment arrêter mon abonnement ?</span><span class="faq-arrow"></span></button>
-      <div class="faq-a"><div class="faq-a-inner">Un e-mail suffit, à georebellac5@gmail.com : « Je veux arrêter mon abonnement. » Après les douze mois d'engagement, l'arrêt prend effet à la fin du mois en cours.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Un e-mail suffit, à georebellac5@gmail.com : « Je veux arrêter mon abonnement. » L'arrêt prend effet à la fin du mois en cours ; avec la formule douze mois, une fois l'engagement terminé.</div></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false"><span>Est-ce que le procédé abîme la bombe ?</span><span class="faq-arrow"></span></button>
@@ -1304,10 +1324,10 @@
 </section>
 
 <section class="fade">
-  <h2>Dix cycles par mois. Quatre-vingt-dix centimes l'unité.</h2>
+  <h2>Dix cycles par mois. <span data-f="Un euro vingt l'unité.">Quatre-vingt-dix centimes l'unité.</span></h2>
   <div style="margin-top:24px;">
-    <a class="btn solid full" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Activer mon abonnement</a>
-    <div class="cta-note">9 €/mois · 10 lavages · Engagement 12 mois</div>
+    <a class="btn solid full js-buy" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Activer mon abonnement</a>
+    <div class="cta-note"><span data-f="12">9</span> €/mois · 10 lavages · <span data-f="Sans engagement">Engagement 12 mois</span> · <a class="f-link" href="#formule">Modifier</a></div>
   </div>
   <p class="already">Déjà abonné ? <a href="merci.html#activer">Activer ma carte</a></p>
   <p style="margin-top:20px;font-size:12px;color:var(--dim);text-align:center;">Conditions détaillées dans les <a href="legal.html" style="color:var(--dim);">informations légales</a>.</p>
@@ -1328,10 +1348,10 @@
 <div class="sticky-cta" id="stickyCta">
   <div class="sticky-in">
     <div class="sticky-price">
-      <div class="a">9<sup>€</sup></div>
+      <div class="a"><span data-f="12">9</span><sup>€</sup></div>
       <div class="b">/ mois</div>
     </div>
-    <a class="btn solid" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Souscrire</a>
+    <a class="btn solid js-buy" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Souscrire</a>
   </div>
 </div>
 
@@ -1600,6 +1620,33 @@ document.addEventListener('DOMContentLoaded', function(){
   },{threshold:0.1});
   o.observe(open);
 });
+
+/* ---- formule : engagement 12 mois (par défaut) ou sans engagement ---- */
+(function(){
+  var LIEN = { engagement: 'https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06', libre: 'https://buy.stripe.com/aFa3cn4Xqbza1ZGbul3wQ07' };
+  var KEY = 'nephele_formule';
+  var sw = document.getElementById('formule'); if(!sw) return;
+  var hero = document.querySelector('.price-hero');
+  var els = [].slice.call(document.querySelectorAll('[data-f]'));
+  els.forEach(function(e){ e._eng = e.innerHTML; });
+  function set(libre, anim){
+    els.forEach(function(e){
+      var v = libre ? e.getAttribute('data-f') : e._eng;
+      if(e.innerHTML === v) return;
+      e.innerHTML = v;
+      if(anim){ e.classList.remove('f-flip'); void e.offsetWidth; e.classList.add('f-flip'); }
+    });
+    document.querySelectorAll('a.js-buy').forEach(function(a){ a.href = libre ? LIEN.libre : LIEN.engagement; });
+    sw.setAttribute('aria-checked', libre ? 'true' : 'false');
+    if(anim && hero){ hero.classList.remove('shine'); void hero.offsetWidth; hero.classList.add('shine'); }
+    try{ sessionStorage.setItem(KEY, libre ? 'libre' : 'engagement'); }catch(e){}
+  }
+  var libre = false;
+  try{ libre = sessionStorage.getItem(KEY) === 'libre'; }catch(e){}
+  if(/[?&]formule=(libre|sans-engagement)\b/.test(location.search)) libre = true;
+  if(libre) set(true, false);
+  sw.addEventListener('click', function(){ libre = !libre; set(libre, true); });
+})();
 </script>
 </body>
 </html>

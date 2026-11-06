@@ -864,6 +864,22 @@
   .help .row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
   .btn2{flex:1 1 130px;text-align:center;padding:13px 14px;border:1px solid var(--ink-bright);color:var(--ink-bright);text-decoration:none;font-size:13.5px;letter-spacing:.04em;transition:background .3s var(--ease),color .3s var(--ease);}
   .btn2:hover{background:var(--ink-bright);color:#000;}
+  button.btn2{background:none;font:inherit;font-size:13.5px;cursor:pointer;}
+  .btn2.on{background:var(--ink-bright);color:#000;}
+  .cpanel{margin-top:14px;border:1px solid var(--border);background:var(--panel);padding:18px 16px 16px;animation:cpIn .4s var(--ease);}
+  @keyframes cpIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .cp-eb{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}
+  .cp-val{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .cp-val b{font-family:Cambria,Georgia,serif;font-weight:400;font-size:19px;color:var(--ink-bright);word-break:break-all;}
+  .cp-copy{flex:0 0 auto;background:none;border:1px solid var(--border);color:var(--ink-bright);font:inherit;font-size:12px;padding:7px 11px;cursor:pointer;}
+  .cp-copy:hover{border-color:var(--ink-bright);}
+  .cp-msg{margin:12px 0 0;font-size:12.5px;color:var(--dim);line-height:1.55;}
+  .cp-msg q{color:var(--ink);quotes:"« " " »";}
+  .cp-act{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+  .cp-act .btn2{flex:none;}
+  .cp-act .btn2.solid{background:var(--ink-bright);color:#000;}
+  .cp-act .btn2.solid:hover{background:#d9d9d9;}
+  @media (prefers-reduced-motion: reduce){.cpanel{animation:none;}}
   .manage{margin-top:26px;font-size:13px;color:var(--dim);text-align:center;}
   .manage a{color:var(--ink-bright);text-decoration:underline;text-underline-offset:3px;}
 
@@ -1118,12 +1134,13 @@
     <div class="help">
       <h2>Une question ?</h2>
       <p><b style="color:var(--ink-bright);font-weight:600;">Votre carte n'apparaît pas :</b> vérifiez que votre compte Monyx utilise le numéro donné au paiement, sinon écrivez-nous, nous la rattachons le jour même.</p>
-      <p><b style="color:var(--ink-bright);font-weight:600;">Vous voulez arrêter :</b> un e-mail suffit, « Je veux arrêter mon abonnement ». Après les douze mois d'engagement, l'arrêt prend effet à la fin du mois en cours.</p>
+      <p><b style="color:var(--ink-bright);font-weight:600;">Vous voulez arrêter :</b> un e-mail suffit, « Je veux arrêter mon abonnement ». L'arrêt prend effet à la fin du mois en cours ; avec la formule douze mois, une fois l'engagement terminé.</p>
       <div class="row">
-        <a class="btn2" id="hSms" href="#">Par SMS</a>
-        <a class="btn2" id="hMail" href="#">Par e-mail</a>
-        <a class="btn2" id="hStop" href="#">Arrêter mon abonnement</a>
+        <button class="btn2" type="button" data-k="sms" aria-controls="cpanel" aria-expanded="false">Par SMS</button>
+        <button class="btn2" type="button" data-k="mail" aria-controls="cpanel" aria-expanded="false">Par e-mail</button>
+        <button class="btn2" type="button" data-k="stop" aria-controls="cpanel" aria-expanded="false">Arrêter mon abonnement</button>
       </div>
+      <div class="cpanel" id="cpanel" hidden></div>
     </div>
 
     <div class="manage" id="manage"></div>
@@ -1418,10 +1435,59 @@ var NEPHELE = {
   $('stIos').href = C.appStore; $('stAnd').href = C.googlePlay;
   if(ios){ $('stIos').classList.add('main'); }
   else if(and){ $('stAnd').classList.add('main'); $('stIos').parentNode.appendChild($('stIos')); }
-  var msg = 'Bonjour, je suis abonné NEPHELE et ma carte n\'apparaît pas dans Monyx Wallet. Mon nom : ';
-  $('hSms').href = 'sms:' + C.telephone + (ios ? '&' : '?') + 'body=' + encodeURIComponent(msg);
-  $('hMail').href = 'mailto:' + C.email + '?subject=' + encodeURIComponent('Carte NEPHELE') + '&body=' + encodeURIComponent(msg);
-  $('hStop').href = 'mailto:' + C.email + '?subject=' + encodeURIComponent('Arrêt de mon abonnement NEPHELE') + '&body=' + encodeURIComponent('Bonjour, je veux arrêter mon abonnement. Nom : \nE-mail utilisé lors du paiement : ');
+  /* ---- contact : un panneau qui fonctionne partout (téléphone, ordinateur sans logiciel de mail) ---- */
+  var mobile = ios || and || (navigator.maxTouchPoints > 1 && /Macintosh/.test(ua));
+  var tel = C.telephone.replace(/^\+33/, '0').replace(/(\d{2})(?=\d)/g, '$1 ');
+  var MSG_CARTE = "Bonjour, je suis abonné NEPHELE et ma carte n'apparaît pas dans Monyx Wallet. Mon nom : ";
+  var MSG_STOP = "Bonjour, je veux arrêter mon abonnement NEPHELE.\nNom : \nE-mail utilisé lors du paiement : ";
+  var K = {
+    sms:  { eb:'Par SMS', val:tel, raw:C.telephone, msg:MSG_CARTE },
+    mail: { eb:'Par e-mail', val:C.email, raw:C.email, sujet:'Carte NEPHELE', msg:MSG_CARTE },
+    stop: { eb:'Arrêter mon abonnement', val:C.email, raw:C.email, sujet:'Arrêt de mon abonnement NEPHELE', msg:MSG_STOP,
+            note:"Nous vous répondons pour confirmer l'arrêt." }
+  };
+  var panel = $('cpanel'), btns = document.querySelectorAll('.help .row [data-k]'), cur = null;
+  function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,' '); }
+  function copy(text, btn, label){
+    function ok(){ btn.textContent = 'Copié ✓'; setTimeout(function(){ btn.textContent = label; }, 2200); }
+    function legacy(){
+      var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); ok(); }catch(e){ btn.textContent = 'Sélectionnez et copiez'; }
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(ok, legacy); } else { legacy(); }
+  }
+  function open(k){
+    var d = K[k], h = '';
+    h += '<div class="cp-eb">' + d.eb + '</div>';
+    h += '<div class="cp-val"><b>' + d.val + '</b><button class="cp-copy" type="button" data-copy="val">Copier</button></div>';
+    if(d.note) h += '<p class="cp-msg">' + d.note + '</p>';
+    h += '<p class="cp-msg">Message prêt : <q>' + esc(d.msg) + '</q></p>';
+    h += '<div class="cp-act">';
+    if(k === 'sms'){
+      if(mobile) h += '<a class="btn2 solid" href="sms:' + d.raw + (ios ? '&' : '?') + 'body=' + encodeURIComponent(d.msg) + '">Ouvrir mes messages</a>';
+      else h += '<p class="cp-msg" style="margin:0;">Envoyez-le depuis votre téléphone, au numéro ci-dessus.</p>';
+    } else {
+      var q = 'subject=' + encodeURIComponent(d.sujet) + '&body=' + encodeURIComponent(d.msg);
+      var gm = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(d.raw) + '&su=' + encodeURIComponent(d.sujet) + '&body=' + encodeURIComponent(d.msg);
+      h += '<a class="btn2 solid" href="mailto:' + d.raw + '?' + q + '">Ouvrir ma messagerie</a>';
+      h += '<a class="btn2" href="' + gm + '" target="_blank" rel="noopener">Écrire depuis Gmail</a>';
+    }
+    h += '<button class="btn2" type="button" data-copy="msg">Copier le message</button></div>';
+    panel.innerHTML = h; panel.hidden = false;
+    panel.querySelector('[data-copy="val"]').addEventListener('click', function(){ copy(d.raw.indexOf('@') > 0 ? d.raw : d.val.replace(/\s/g,''), this, 'Copier'); });
+    panel.querySelector('[data-copy="msg"]').addEventListener('click', function(){ copy(d.msg, this, 'Copier le message'); });
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var k = b.getAttribute('data-k');
+      btns.forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-expanded','false'); });
+      if(cur === k){ cur = null; panel.hidden = true; return; }
+      cur = k; b.classList.add('on'); b.setAttribute('aria-expanded','true'); open(k);
+      if(panel.getBoundingClientRect().bottom > innerHeight) panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
   $('manage').innerHTML = C.portail
     ? '<a href="' + C.portail + '" target="_blank" rel="noopener">Gérer mon abonnement</a> · factures, carte bancaire'
     : '';

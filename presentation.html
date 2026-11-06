@@ -928,6 +928,8 @@
     </div>
     <span class="contact-modal-copied" id="contactModalCopied">Copié ✓</span>
     <a class="btn solid contact-modal-action" id="contactModalAction" href="mailto:georebellac5@gmail.com?subject=Installation%20NEPHELE">Ouvrir la messagerie</a>
+    <a class="btn contact-modal-action" id="contactModalGmail" style="margin-top:10px;" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=georebellac5%40gmail.com&amp;su=Installation%20NEPHELE" target="_blank" rel="noopener">Écrire depuis Gmail</a>
+    <p id="contactModalHint" style="margin:16px 0 0;font-size:12.5px;color:var(--dim);text-align:center;" hidden>Composez ce numéro depuis votre téléphone.</p>
   </div>
 </div>
 
@@ -1202,6 +1204,11 @@
     contactActionLink.href = data.href;
     contactActionLink.textContent = data.action;
     contactActionLink.dataset.rawValue = data.value.replace(/\s+/g, '');
+    var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+    var gm = document.getElementById('contactModalGmail'), hint = document.getElementById('contactModalHint');
+    gm.style.display = kind === 'email' ? '' : 'none';
+    contactActionLink.style.display = (kind === 'phone' && !isMobile) ? 'none' : '';
+    hint.hidden = !(kind === 'phone' && !isMobile);
     contactCopiedLabel.classList.remove('show');
     lastFocused = document.activeElement;
     contactOverlay.hidden = false;
