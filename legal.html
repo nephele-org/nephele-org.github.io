@@ -768,6 +768,17 @@
   }
 
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id= + UMAMI_ID +  data-domains="nephele-org.github.io"></script>
+<script>/* mesure d'audience Umami (sans cookie) : nT(nom, données) + source d'arrivée (?src= ou ?utm_source=) gardée 30 jours */
+(function(){
+  window.nT = function(n, d){ try{ if(window.umami && umami.track) umami.track(n, d); }catch(e){} };
+  try{
+    var q = new URLSearchParams(location.search), s = q.get('src') || q.get('utm_source');
+    /* localStorage : Stripe s'ouvre dans un nouvel onglet, la source doit survivre jusqu'à la page merci (30 jours) */
+    if(s) localStorage.setItem('neph_src', JSON.stringify({ s: s.slice(0, 40), t: Date.now() }));
+    window.nSrc = function(){ try{ var v = JSON.parse(localStorage.getItem('neph_src') || 'null'); return (v && Date.now() - v.t < 2592e6) ? v.s : 'direct'; }catch(e){ return 'direct'; } };
+  }catch(e){ window.nSrc = function(){ return 'direct'; }; }
+})();</script>
 <script>/* transitions natives entre pages (Chrome, Edge, Safari 18.2+) ; sinon voile historique */
 if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('vt');}</script>
 <style>
@@ -869,6 +880,7 @@ if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduc
       <p>Le formulaire de la page « Installer une station » collecte les informations que vous y saisissez volontairement : identité, coordonnées, données relatives à votre structure et signature manuscrite numérisée. Ces données servent uniquement à étudier votre demande d'installation et à y répondre. Elles sont conservées le temps nécessaire au traitement de la demande et à la relation qui en découle, dans la limite de trois ans à compter du dernier contact.</p>
       <p>Les données de souscription à l'abonnement sont traitées par Stripe, responsable de leur sécurité, selon sa propre politique de confidentialité. NEPHELE conserve les éléments nécessaires à la facturation et au suivi de l'abonnement pendant la durée légale de conservation comptable.</p>
       <p>Le numéro de téléphone mobile communiqué lors de la souscription est utilisé pour créer votre carte NEPHELE et la rattacher à votre compte Monyx Wallet. Il est enregistré à cette seule fin dans l'outil de gestion de Nayax, qui opère les terminaux de paiement des stations et l'application, et traite ces données selon sa propre politique de confidentialité. Il est conservé pendant la durée de l'abonnement, puis supprimé à sa résiliation, sauf obligation légale contraire.</p>
+      <p>Mesure d'audience : le site utilise Umami, un outil de mesure d'audience sans cookie, hébergé dans l'Union européenne. Il ne collecte aucune donnée personnelle et ne permet pas de vous identifier. Il compte, de façon anonyme et agrégée, les pages consultées et les clics sur les boutons, afin d'améliorer le site.</p>
       <p>Conformément au Règlement Général sur la Protection des Données, vous disposez d'un droit d'accès, de rectification, d'opposition, de limitation et de suppression de vos données. Il s'exerce par simple demande à georebellac5@gmail.com. Vous pouvez également introduire une réclamation auprès de la CNIL.</p>
     </section>
 

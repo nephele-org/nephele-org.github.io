@@ -838,6 +838,17 @@
   }
 
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id= + UMAMI_ID +  data-domains="nephele-org.github.io"></script>
+<script>/* mesure d'audience Umami (sans cookie) : nT(nom, données) + source d'arrivée (?src= ou ?utm_source=) gardée 30 jours */
+(function(){
+  window.nT = function(n, d){ try{ if(window.umami && umami.track) umami.track(n, d); }catch(e){} };
+  try{
+    var q = new URLSearchParams(location.search), s = q.get('src') || q.get('utm_source');
+    /* localStorage : Stripe s'ouvre dans un nouvel onglet, la source doit survivre jusqu'à la page merci (30 jours) */
+    if(s) localStorage.setItem('neph_src', JSON.stringify({ s: s.slice(0, 40), t: Date.now() }));
+    window.nSrc = function(){ try{ var v = JSON.parse(localStorage.getItem('neph_src') || 'null'); return (v && Date.now() - v.t < 2592e6) ? v.s : 'direct'; }catch(e){ return 'direct'; } };
+  }catch(e){ window.nSrc = function(){ return 'direct'; }; }
+})();</script>
 <script>/* transitions natives entre pages (Chrome, Edge, Safari 18.2+) ; sinon voile historique */
 if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('vt');}</script>
 <style>
@@ -1452,6 +1463,7 @@ if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduc
         showDone(pdfOk, pdfName, mailto, gmail, body);
       }
 
+      window.nT && nT('demande-installation', { source: window.nSrc ? nSrc() : 'direct' });
       if(FORMSPREE_ID){
         var payload = new FormData();
         Object.keys(data).forEach(function(k){ payload.append(LABELS[k] || k, data[k]); });

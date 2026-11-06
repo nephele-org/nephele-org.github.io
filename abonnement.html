@@ -1099,6 +1099,17 @@
   .cta-note .f-link{color:var(--dim);text-decoration:underline;text-underline-offset:3px;}
   @media (prefers-reduced-motion: reduce){.sw,.sw i,.f-txt b{transition:none!important;}.f-flip{animation:none!important;}}
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id= + UMAMI_ID +  data-domains="nephele-org.github.io"></script>
+<script>/* mesure d'audience Umami (sans cookie) : nT(nom, données) + source d'arrivée (?src= ou ?utm_source=) gardée 30 jours */
+(function(){
+  window.nT = function(n, d){ try{ if(window.umami && umami.track) umami.track(n, d); }catch(e){} };
+  try{
+    var q = new URLSearchParams(location.search), s = q.get('src') || q.get('utm_source');
+    /* localStorage : Stripe s'ouvre dans un nouvel onglet, la source doit survivre jusqu'à la page merci (30 jours) */
+    if(s) localStorage.setItem('neph_src', JSON.stringify({ s: s.slice(0, 40), t: Date.now() }));
+    window.nSrc = function(){ try{ var v = JSON.parse(localStorage.getItem('neph_src') || 'null'); return (v && Date.now() - v.t < 2592e6) ? v.s : 'direct'; }catch(e){ return 'direct'; } };
+  }catch(e){ window.nSrc = function(){ return 'direct'; }; }
+})();</script>
 <script>/* transitions natives entre pages (Chrome, Edge, Safari 18.2+) ; sinon voile historique */
 if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('vt');}</script>
 <style>
@@ -1659,7 +1670,15 @@ document.addEventListener('DOMContentLoaded', function(){
   try{ libre = sessionStorage.getItem(KEY) === 'libre'; }catch(e){}
   if(/[?&]formule=(libre|sans-engagement)\b/.test(location.search)) libre = true;
   if(libre) set(true, false);
-  sw.addEventListener('click', function(){ libre = !libre; set(libre, true); });
+  sw.addEventListener('click', function(){ libre = !libre; set(libre, true); window.nT && nT('formule', { choix: libre ? 'sans-engagement' : 'engagement' }); });
+  /* mesure : clic sur Souscrire, avec la formule, l'endroit du bouton et la source d'arrivée */
+  document.querySelectorAll('a.js-buy').forEach(function(a){
+    var ou = a.closest('.sticky-cta') ? 'barre' : (a.closest('.open') ? 'haut' : 'bas');
+    a.addEventListener('click', function(){ window.nT && nT('souscrire', { formule: libre ? 'sans-engagement' : 'engagement', bouton: ou, source: window.nSrc ? nSrc() : 'direct' }); });
+  });
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click', function(){ setTimeout(function(){ if(q.getAttribute('aria-expanded') === 'true') window.nT && nT('faq', { question: q.textContent.trim().slice(0, 60) }); }, 0); });
+  });
 })();
 </script>
 </body>
