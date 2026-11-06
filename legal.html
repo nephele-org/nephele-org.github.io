@@ -768,6 +768,19 @@
   }
 
 </style>
+<script>/* transitions natives entre pages (Chrome, Edge, Safari 18.2+) ; sinon voile historique */
+if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('vt');}</script>
+<style>
+  @view-transition{navigation:auto;}
+  html{background:#000;}
+  ::view-transition-old(root){animation:nxOut .26s cubic-bezier(.4,0,1,1) both;}
+  ::view-transition-new(root){animation:nxIn .55s cubic-bezier(.2,.7,.2,1) .16s both;}
+  @keyframes nxOut{to{opacity:0;transform:translateY(-6px);}}
+  @keyframes nxIn{from{opacity:0;transform:translateY(10px);}}
+  html.vt .page-veil{display:none!important;}
+  html.vt .page-lift{opacity:1!important;transform:none!important;transition:none!important;}
+  @media (prefers-reduced-motion: reduce){@view-transition{navigation:none;}}
+</style>
 </head>
 <body>
 
@@ -814,7 +827,7 @@
       <ul>
         <li><strong>À l'usage</strong> — 6 € par cycle, réglés directement au terminal de la station, sans abonnement ni engagement.</li>
         <li><strong>Abonnement avec engagement</strong> — 9 € par mois, pour douze mois minimum, donnant droit à 10 cycles par mois et par abonné, soit 0,90 € le cycle.</li>
-        <li><strong>Abonnement sans engagement</strong> — 12 € par mois, résiliable à tout moment, donnant droit à 10 cycles par mois et par abonné, soit 1,20 € le cycle.</li>
+        <li><strong>Abonnement sans engagement</strong> — 12,50 € par mois, résiliable à tout moment, donnant droit à 10 cycles par mois et par abonné, soit 1,25 € le cycle.</li>
       </ul>
 
       <h3>Prix et paiement</h3>
@@ -932,6 +945,7 @@
   });
 
   document.addEventListener('click', function(e){
+    if(document.documentElement.classList.contains('vt')) return;   /* le navigateur gère la transition */
     var a = e.target.closest && e.target.closest('a[href]');
     if(!a) return;
     if(a.target === '_blank' || a.hasAttribute('download')) return;

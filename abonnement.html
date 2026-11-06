@@ -1099,6 +1099,19 @@
   .cta-note .f-link{color:var(--dim);text-decoration:underline;text-underline-offset:3px;}
   @media (prefers-reduced-motion: reduce){.sw,.sw i,.f-txt b{transition:none!important;}.f-flip{animation:none!important;}}
 </style>
+<script>/* transitions natives entre pages (Chrome, Edge, Safari 18.2+) ; sinon voile historique */
+if('onpagereveal' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('vt');}</script>
+<style>
+  @view-transition{navigation:auto;}
+  html{background:#000;}
+  ::view-transition-old(root){animation:nxOut .26s cubic-bezier(.4,0,1,1) both;}
+  ::view-transition-new(root){animation:nxIn .55s cubic-bezier(.2,.7,.2,1) .16s both;}
+  @keyframes nxOut{to{opacity:0;transform:translateY(-6px);}}
+  @keyframes nxIn{from{opacity:0;transform:translateY(10px);}}
+  html.vt .page-veil{display:none!important;}
+  html.vt .page-lift{opacity:1!important;transform:none!important;transition:none!important;}
+  @media (prefers-reduced-motion: reduce){@view-transition{navigation:none;}}
+</style>
 </head>
 <body>
 
@@ -1110,7 +1123,7 @@
 <section class="open">
   <div class="eyebrow">L'abonnement</div>
   <h1>Votre casque n'a jamais été lavé. Pas une seule fois depuis que vous l'avez.</h1>
-  <div class="sub">Dix cycles par mois. Quatre minutes chacun. <span data-f="Un euro vingt l'unité.">Quatre-vingt-dix centimes l'unité.</span></div>
+  <div class="sub">Dix cycles par mois. Quatre minutes chacun. <span data-f="Un euro vingt-cinq l'unité.">Quatre-vingt-dix centimes l'unité.</span></div>
 
   <div class="ncard-wrap">
     <div class="ncard" data-card="10" role="img" aria-label="Carte NEPHELE virtuelle, dix lavages par mois">
@@ -1128,16 +1141,16 @@
   <div class="ncard-cap">Votre carte NEPHELE vit dans votre téléphone. <a href="#comment" style="color:var(--ink-bright);">Comment ça se passe</a></div>
 
   <div class="price-hero" data-shine>
-    <div class="amount reveal-pop"><span data-f="12">9</span><sup>€</sup><span class="per">/mois</span></div>
+    <div class="amount reveal-pop"><span data-f="12,50">9</span><sup>€</sup><span class="per">/mois</span></div>
     <div class="qty">10 cycles inclus chaque mois · <span data-f="sans engagement">engagement 12 mois</span></div>
     <div class="ppw reveal-pop">
       <span class="old">6 €</span>
       <span class="arrow">&rarr;</span>
-      <span class="new"><span data-f="1,20">0,90</span><sup>€</sup></span>
+      <span class="new"><span data-f="1,25">0,90</span><sup>€</sup></span>
       <span class="unit">le lavage</span>
     </div>
     <button class="formule" id="formule" type="button" role="switch" aria-checked="false">
-      <span class="f-txt"><b>Sans engagement</b><span aria-live="polite" data-f="Vous arrêtez quand vous voulez, par simple e‑mail. Effet à la fin du mois en cours.">12 € par mois au lieu de 9, et vous arrêtez quand vous voulez.</span></span>
+      <span class="f-txt"><b>Sans engagement</b><span aria-live="polite" data-f="Vous arrêtez quand vous voulez, par simple e‑mail. Effet à la fin du mois en cours.">12,50 € par mois au lieu de 9, et vous arrêtez quand vous voulez.</span></span>
       <span class="sw" aria-hidden="true"><i></i></span>
     </button>
   </div>
@@ -1273,14 +1286,14 @@
 
 <section class="fade">
   <div class="eyebrow">Le calcul</div>
-  <h2>Dix lavages à l'unité coûtent soixante euros. Ici, ils en coûtent <span data-f="douze">neuf</span>.</h2>
+  <h2>Dix lavages à l'unité coûtent soixante euros. Ici, ils en coûtent <span data-f="douze euros cinquante">neuf</span>.</h2>
 
   <div class="compare">
     <div class="cmp-row"><span class="k">10 cycles au tarif à l'usage</span><span class="v">60,00 €</span></div>
-    <div class="cmp-row hi"><span class="k">10 cycles avec l'abonnement</span><span class="v" data-f="12,00 €">9,00 €</span></div>
-    <div class="cmp-row"><span class="k">Coût réel du cycle</span><span class="v" data-f="1,20 €">0,90 €</span></div>
+    <div class="cmp-row hi"><span class="k">10 cycles avec l'abonnement</span><span class="v" data-f="12,50 €">9,00 €</span></div>
+    <div class="cmp-row"><span class="k">Coût réel du cycle</span><span class="v" data-f="1,25 €">0,90 €</span></div>
   </div>
-  <div class="cmp-save">Soit <strong data-f="48 €">51 €</strong> d'écart chaque mois, à usage plein.</div>
+  <div class="cmp-save">Soit <strong data-f="47,50 €">51 €</strong> d'écart chaque mois, à usage plein.</div>
 
   <div class="incl">
     <div class="incl-item" data-line>
@@ -1306,7 +1319,7 @@
     </div>
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false"><span>Quel est l'engagement ?</span><span class="faq-arrow"></span></button>
-      <div class="faq-a"><div class="faq-a-inner">Vous choisissez. Douze mois à 9 € par mois : c'est cette durée qui permet de tenir le cycle à 0,90 € au lieu de 6 € à l'unité, puis il continue sans engagement. Ou sans engagement dès le départ, à 12 € par mois : vous arrêtez quand vous voulez.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Vous choisissez. Douze mois à 9 € par mois : c'est cette durée qui permet de tenir le cycle à 0,90 € au lieu de 6 € à l'unité, puis il continue sans engagement. Ou sans engagement dès le départ, à 12,50 € par mois : vous arrêtez quand vous voulez.</div></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false"><span>Comment arrêter mon abonnement ?</span><span class="faq-arrow"></span></button>
@@ -1324,10 +1337,10 @@
 </section>
 
 <section class="fade">
-  <h2>Dix cycles par mois. <span data-f="Un euro vingt l'unité.">Quatre-vingt-dix centimes l'unité.</span></h2>
+  <h2>Dix cycles par mois. <span data-f="Un euro vingt-cinq l'unité.">Quatre-vingt-dix centimes l'unité.</span></h2>
   <div style="margin-top:24px;">
     <a class="btn solid full js-buy" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Activer mon abonnement</a>
-    <div class="cta-note"><span data-f="12">9</span> €/mois · 10 lavages · <span data-f="Sans engagement">Engagement 12 mois</span> · <a class="f-link" href="#formule">Modifier</a></div>
+    <div class="cta-note"><span data-f="12,50">9</span> €/mois · 10 lavages · <span data-f="Sans engagement">Engagement 12 mois</span> · <a class="f-link" href="#formule">Modifier</a></div>
   </div>
   <p class="already">Déjà abonné ? <a href="merci.html#activer">Activer ma carte</a></p>
   <p style="margin-top:20px;font-size:12px;color:var(--dim);text-align:center;">Conditions détaillées dans les <a href="legal.html" style="color:var(--dim);">informations légales</a>.</p>
@@ -1348,7 +1361,7 @@
 <div class="sticky-cta" id="stickyCta">
   <div class="sticky-in">
     <div class="sticky-price">
-      <div class="a"><span data-f="12">9</span><sup>€</sup></div>
+      <div class="a"><span data-f="12,50">9</span><sup>€</sup></div>
       <div class="b">/ mois</div>
     </div>
     <a class="btn solid js-buy" href="https://buy.stripe.com/bJe9ALblO32EgUA2XP3wQ06" target="_blank" rel="noopener">Souscrire</a>
@@ -1375,6 +1388,7 @@
   });
 
   document.addEventListener('click', function(e){
+    if(document.documentElement.classList.contains('vt')) return;   /* le navigateur gère la transition */
     var a = e.target.closest && e.target.closest('a[href]');
     if(!a) return;
     if(a.target === '_blank' || a.hasAttribute('download')) return;
